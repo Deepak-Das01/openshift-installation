@@ -1,0 +1,32 @@
+$TTL 604800
+@   IN  SOA  bastion.kubelabs.com. contact.kubelabs.com (
+        2025110501 ; Serial (use date-based format)
+        604800     ; Refresh
+        86400      ; Retry
+        2419200    ; Expire
+        604800 )   ; Minimum TTL
+
+    IN  NS  bastion.kubelabs.com.
+
+; --- PTR Records (Reverse DNS) ---
+
+1    IN  PTR  bastion.kubelabs.com.
+1    IN  PTR  registry.kubelabs.com.
+1    IN  PTR  api.kubelab.kubelabs.com.
+1    IN  PTR  api-int.kubelab.kubelabs.com.
+
+10   IN  PTR  bootstrap.kubelabs.com.
+
+11   IN  PTR  master01.kubelabs.com.
+12   IN  PTR  master02.kubelabs.com.
+13   IN  PTR  master03.kubelabs.com.
+
+21   IN  PTR  worker01.kubelabs.com.
+22   IN  PTR  worker02.kubelabs.com.
+
+31   IN  PTR  edge01.kubelabs.com.
+32   IN  PTR  edge02.kubelabs.com.
+
+15   IN  PTR  etcd-0.kubelabs.com.
+16   IN  PTR  etcd-1.kubelabs.com.
+17   IN  PTR  etcd-2.kubelabs.com.
