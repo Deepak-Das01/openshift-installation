@@ -1,0 +1,70 @@
+apiVersion: v1
+baseDomain: kubelabs.com
+
+compute:
+  - name: worker
+    hyperthreading: Enabled
+    replicas: 0   # UPI: workers provisioned manually
+
+controlPlane:
+  name: master
+  hyperthreading: Enabled
+  replicas: 3
+
+metadata:
+  name: kubelab    # cluster name
+
+networking:
+  networkType: OVNKubernetes        # SDN is deprecated for 4.18
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  serviceNetwork:
+    - 172.30.0.0/16
+
+platform:
+  none: {}     # bare-metal / UPI
+
+fips: false
+
+pullSecret: '{"auths":{"registry.kubelabs.com:8443":{"auth":"b3BlbnNoaWZ0OnJlZGhhdDEyMw=="}}}'
+
+sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCweDghT8s8bd+x5hgG4kOYuU86Zb02LHB2ant30P99YoCwQa6aBBkOqKeLzrsIst9NiYCJ4RuXpgiIj9zGcNypr8yYIyUNNRLLtjSm7FZ0Wi/wGShVG9+JFGgUJtt7i05kOBg4gFDtO1eIVghzjcq4q1ECvTqkdtJoMbPBhlV2UPuuZB5/IrOONhf6QZi8KF5NXoGt5oH9dU8qV0oXkRwVeBT18VYZXJwN2uFFNIOKdSY+eiIxclra0qjz1kUfUtbUlybWAvd3n1vEQG7ScqDOhNmdS5fK4im3Xum0RLPOYy6Xa+xrzHNrPHAUemVpTycTdRcF5i+5XUDcTf1F4d5LSQWsZMtn72fYXIH/63TMQR2okMLA9yfkchUx7nIY+7Z20+IOSibSQWWXhzcYZGAbh6YNX9u+dmlfYHVrLVEJ4ESocC++5wEKkUgYBLt6jl4KshQgI1sju+SWLoo3hSFZQClOwxXv5qgK0e8taFqTOq5G7T0ZORR+EHb0CFNi29s= root@kubelabs.int.com"
+
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  MIID5TCCAs2gAwIBAgIUA2Oy+geL6Saq+EFUBtXXRvcxTeEwDQYJKoZIhvcNAQEL
+  BQAwbzELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAlZBMREwDwYDVQQHDAhOZXcgWW9y
+  azENMAsGA1UECgwEUXVheTERMA8GA1UECwwIRGl2aXNpb24xHjAcBgNVBAMMFXJl
+  Z2lzdHJ5Lmt1YmVsYWJzLmNvbTAeFw0yNTExMjQxODAxMDJaFw0yODA5MTMxODAx
+  MDJaMG8xCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJWQTERMA8GA1UEBwwITmV3IFlv
+  cmsxDTALBgNVBAoMBFF1YXkxETAPBgNVBAsMCERpdmlzaW9uMR4wHAYDVQQDDBVy
+  ZWdpc3RyeS5rdWJlbGFicy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+  AoIBAQCZAWrR01H4xTE/VkmGoO867I7NuTT1q7r2ZHjWnP6nzPKDxFdLhIufmoOX
+  OfqSbYrottnQxAwJ2LtsCB50hz2vfIcqvYLTonjYLRhW3RNiIClUXjAyRVowOMKr
+  4yodwnCTMAI33oBcOaKbAuRHiCD1VgYiYClWJd8OkPUD/DA1pFMeDJnK6FR/NQx1
+  zILtsEBECsyfNQGOwmUn5B3AfItCXt6rBTshRvEN4Chfz3boCUkUet5uR1vVDsor
+  VfDgMzGE2gPOMgaFTpMP0dbeHqENgda6ND6bnIJE0WLZfCZT0uz6aQJNF7dZtlkE
+  hUX71Y87QFZFZM4UsS0IHgYmnB43AgMBAAGjeTB3MAsGA1UdDwQEAwIC5DATBgNV
+  HSUEDDAKBggrBgEFBQcDATAgBgNVHREEGTAXghVyZWdpc3RyeS5rdWJlbGFicy5j
+  b20wEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQUkIv2cV8nJ/lCZ/WhW4CU
+  nsbcmv0wDQYJKoZIhvcNAQELBQADggEBADpfEqNKpvhrjj31jdUhoj8njMdm9KW8
+  sOEIYp2Djs+RfI+TwH2b41Tl0n8cuTRZLny8cWQbYXesW9A/kO6iPxRuM6dDKxIJ
+  u12QGs4KJDMoxpnlSyyoWuF45q4Fan9k+dnvlAahfn0fAL3Btn1Afh9CjWmtSG5r
+  KRrY92a+oA9cRl8DbPu+iGlCuHfLWkVTSYQ4x2FuWUuJHg/VSU2a3JRICuORVDca
+  KhOdr2qplnfJRDUCFRBRrkCd4NDsSJYpdLk4scXNW3rpkLvv0osshmOeXZKhf8CR
+  riq/l0eOeGX3oTZTazVMiAA67Y+WcgOehAjiD3OZ13JhgVO+5/3Kavk=
+  -----END CERTIFICATE-----
+
+ImageDigestSources:
+  - mirrors:
+      - registry.kubelabs.com:8443/ocp4/openshift4
+    source: quay.io/openshift-release-dev/ocp-release
+
+  - mirrors:
+      - registry.kubelabs.com:8443/ocp4/openshift4
+    source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+
+capabilities:
+  baselineCapabilitySet: v4.18
+
