@@ -127,7 +127,7 @@ Hostnames:
 
 ## Part A : Bastion Host Configuration 
 
-Step1 : Copy the Git repository to the Linux host, download the required CLI tool packages, extract them using tar xzvf <tarball.tar.gz>, and move the binaries to /usr/bin/ for system-wide access. 
+### Step 1 : Copy the Git repository to the Linux host, download the required CLI tool packages, extract them using tar xzvf <tarball.tar.gz>, and move the binaries to /usr/bin/ for system-wide access. 
 ~~~
 $ git clone https://github.com/Deepak-Das01/openshift-installation.git
 $ cd cli-tools/
@@ -135,7 +135,7 @@ $ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/o
 $ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/openshift-install-linux.tar.gz 
 $ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/oc-mirror.rhel9.tar.gz
 ~~~
-Step 2  : Network Configuration on Virtual machine host use the Networ 1 ( Bridge ) in my case its ens194 on the host machine and change its ipv4 address to the 10.9.8.1/24 , dns 127.0.0.1 , Search domains : kubelabs.com 
+### Step 2  : Network Configuration on Virtual machine host use the Networ 1 ( Bridge ) in my case its ens194 on the host machine and change its ipv4 address to the 10.9.8.1/24 , dns 127.0.0.1 , Search domains : kubelabs.com 
 1. edit using below command and choose you bridge network
 ~~~
 nmtui-edit con ens192
@@ -152,3 +152,9 @@ $ nmcli connection up ens192
 $ ip a
 ~~~
 ![Net3 Diagram](./digram/network-3.png)
+
+### Step 3 : Turn Off the Firewall service 
+~~~
+[root@bastion openshift-installation]# systemctl stop firewalld
+[root@bastion openshift-installation]# systemctl disable firewalld
+~~~
