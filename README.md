@@ -238,8 +238,7 @@ systemctl status haproxy
 [root@bastion openshift-installation]# mkdir -p /root/nfs-registry
 [root@bastion openshift-installation]# chown -R nobody:nobody /root/nfs-registry
 [root@bastion openshift-installation]# chmod -R 777 /root/nfs-registry
-[root@bastion openshift-installation]# echo "/root/nfs-registry  10.9.8.0/24(rw,sync,root_squash,no_subtree_check,no_wdelay)" > /etc
-/exports
+[root@bastion openshift-installation]# echo "/root/nfs-registry  10.9.8.0/24(rw,sync,root_squash,no_subtree_check,no_wdelay)" > /etc/exports
 [root@bastion openshift-installation]# exportfs -rv
 exporting 10.9.8.0/24:/root/nfs-registry
 [root@bastion openshift-installation]# systemctl enable nfs-server rpcbind
