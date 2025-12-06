@@ -305,5 +305,32 @@ INFO[2025-07-10 02:37:34] Quay is available at https://registry.kubelabs.com:844
 On laptop browser check using any webbrowser , on windows etc file make entry for registry.kubelabs.com with ip of vm 
 ![Net7 Diagram](./digram/registry-1.png)
 
-### Step 14 : Create organisation ocp4 & Registry openshift4
+### Step 14 : Create organization ocp4 & Registry openshift4  
 ![Net8 Diagram](./digram/registry-2.png)
+
+### Step 15 : For uploading images we need cli access using podman , if you try to login from the cli first time will face this issue 
+~~~
+[root@bastion ocp-image]# podman login registry.kubelabs.com:8443
+Username: openshift
+Password:
+Error: authenticating creds for "registry.kubelabs.com:8443": pinging container registry registry.kubelabs.com:8443: Get "https://registry.kubelabs.com:8443/v2/": tls: failed to verify certificate: x509: certificate signed by unknown authority
+~~~
+#### To Fix This need to import quay cretificate on bastion host 
+~~~
+[root@bastion ~]# ls
+anaconda-ks.cfg            files              initial-setup-ks.cfg  mirror-registry-amd64.tar.gz  pullsec       quay.tar   redis.tar
+execution-environment.tar  image-archive.tar  mirror-registry       pause.tar                     quay-install  README.md  sqlite3.tar
+[root@bastion ~]# cd quay-install/
+[root@bastion quay-install]# ls
+quay-config  quay-rootCA
+[root@bastion quay-install]# cd quay-rootCA/
+[root@bastion quay-rootCA]# ls
+rootCA.key  rootCA.pem  rootCA.srl
+[root@bastion quay-rootCA]# cp rootCA.pem /etc/pki/ca-trust/source/anchors/
+[root@bastion quay-rootCA]# update-ca-trust
+[root@bastion quay-rootCA]# cd
+[root@bastion ~]# podman login bastion.ocplabs.com:8443
+Username: openshift
+Password:
+Login Succeeded!
+~~~
