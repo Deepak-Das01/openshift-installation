@@ -1,0 +1,44 @@
+apiVersion: mirror.openshift.io/v1alpha2
+kind: ImageSetConfiguration
+
+archiveSize: 4
+
+mirror:
+  platform:
+    architectures:
+      - amd64
+    channels: []
+
+  operators:
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.18
+      packages:
+        - name: odf-operator
+          channels:
+            - name: stable-4.18
+        - name: odf-dependencies    # Required dependency
+          channels:
+            - name: stable-4.18
+        - name: rook-ceph-operator    # Required dependency
+          channels:
+            - name: stable-4.18
+        - name: ocs-operator
+          channels:
+            - name: stable-4.18
+        - name: mcg-operator
+          channels:
+            - name: stable-4.18      
+        - name: recipe
+          channels:
+            - name: stable-4.18      
+        - name: odf-prometheus-operator
+          channels:
+            - name: stable-4.18
+        - name: odf-csi-addons-operator
+          channels:
+            - name: stable-4.18
+        - name: ocs-client-operator
+          channels:
+            - name: stable-4.18
+        - name: cephcsi-operator
+          channels:
+            - name: stable-4.18      
