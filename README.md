@@ -127,7 +127,7 @@ Hostnames:
 
 ## Part A : Bastion Host Configuration 
 
-** Step1 : Copy the Git repository to the Linux host, download the required CLI tool packages, extract them using tar xzvf <tarball.tar.gz>, and move the binaries to /usr/bin/ for system-wide access. **
+Step1 : Copy the Git repository to the Linux host, download the required CLI tool packages, extract them using tar xzvf <tarball.tar.gz>, and move the binaries to /usr/bin/ for system-wide access. 
 ~~~
 $ git clone https://github.com/Deepak-Das01/openshift-installation.git
 $ cd cli-tools/
