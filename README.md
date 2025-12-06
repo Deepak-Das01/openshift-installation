@@ -254,7 +254,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/nfs-server.service â
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
  
-192.168.29.83   bastion.kubelabs.com
+192.168.29.83   registry.kubelabs.com
 ~~~
 ### Step 10 : Export all the variables required for mirror the ocp images , Pull secret need to generate from the Redhat Hybrid cloud console 
 ~~~
@@ -292,7 +292,7 @@ $ wget https://mirror.openshift.com/pub/cgw/mirror-registry/latest/mirror-regist
 ~~~
 ### Step 13 : Untar the tarball file and run the below command , User name and password are your choice
 ~~~
-./mirror-registry install --quayHostname bastion.ocplabs.com --initUser openshift --initPassword redhat123
+./mirror-registry install --quayHostname registry.kubelabs.com --initUser openshift --initPassword redhat123
 ~~~
 This Command is only successful only if it presents 
 ~~~
@@ -300,5 +300,5 @@ PLAY RECAP *********************************************************************
 root@bastion.ocplabs.com   : ok=48   changed=19   unreachable=0    failed=0    skipped=16   rescued=0    ignored=0
  
 INFO[2025-07-10 02:37:34] Quay installed successfully, config data is stored in ~/quay-install
-INFO[2025-07-10 02:37:34] Quay is available at https://bastion.ocplabs.com:8443 with credentials (openshift, redhat123)
+INFO[2025-07-10 02:37:34] Quay is available at https://registry.kubelabs.com:8443 with credentials (openshift, redhat123)
 ~~~
