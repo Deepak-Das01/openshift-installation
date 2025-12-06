@@ -38,9 +38,7 @@ All required cluster artifacts—RHCOS ISO, release images, and operator catalog
 
 ## 📌 Architecture Diagram
 
-![openshift-installation/digram](architecture-1.png)
-
-> **Note:** Replace `architecture.png` with your actual image path or GitHub asset link.
+![Architecture Diagram](./digram/architecture-1.png)
 
 ---
 
