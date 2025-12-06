@@ -246,6 +246,7 @@ systemctl start nfs-server rpcbind nfs-mountd
 Created symlink /etc/systemd/system/multi-user.target.wants/nfs-server.service → /usr/lib/systemd/system/nfs-server.service.
 ~~~
 ---
+
 ## Part B : Setup Mirror Registry in bastion host
 ### Step 9 : Create hosts entry in /etc/hosts file ( If DNS Already done then skip this step )
 ~~~
@@ -270,4 +271,34 @@ mkdir -p $SAVE_DIR
 ~~~
 oc adm release mirror -a ${PULL_SECRET_PATH}   --from=quay.io/openshift-release-dev/ocp-release:${OCP_RELEASE}-${ARCHITECTURE}   --to-dir=${SAVE_DIR}
 ~~~
-
+This Command is only successful only if it presents 
+~~~
+sha256:bfb892b741b3309e593a21eb9affa4b5348f5327bea99e7a44c7d4ba8d6a6f90 file://openshift/release:4.16.5-x86_64-azure-workload-identity-webhook
+info: Mirroring completed in 14m4.05s (3.848MB/s)
+ 
+Success
+Update image:  openshift/release:4.16.5-x86_64
+ 
+To upload local images to a registry, run:
+ 
+    oc image mirror --from-dir=/ocp-image 'file://openshift/release:4.16.5-x86_64*' REGISTRY/REPOSITORY
+ 
+Configmap signature file /ocp-image/config/signature-sha256-ac78ebf77f95ab8f.json created
+~~~
+### Step 12 : Install Quay Mirror Registry 
+Downalod the cli tool using below link
+~~~
+$ wget https://mirror.openshift.com/pub/cgw/mirror-registry/latest/mirror-registry-amd64.tar.gz
+~~~
+### Step 13 : Untar the tarball file and run the below command , User name and password are your choice
+~~~
+./mirror-registry install --quayHostname bastion.ocplabs.com --initUser openshift --initPassword redhat123
+~~~
+This Command is only successful only if it presents 
+~~~
+PLAY RECAP ************************************************************************************************************************************************************************
+root@bastion.ocplabs.com   : ok=48   changed=19   unreachable=0    failed=0    skipped=16   rescued=0    ignored=0
+ 
+INFO[2025-07-10 02:37:34] Quay installed successfully, config data is stored in ~/quay-install
+INFO[2025-07-10 02:37:34] Quay is available at https://bastion.ocplabs.com:8443 with credentials (openshift, redhat123)
+~~~
