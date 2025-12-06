@@ -143,7 +143,7 @@ nmtui-edit con ens192
 ![Net1 Diagram](./digram/network-1.png)
 
 2. Change the ipv4 to maunal and edit the details as per the below snip after that click on save 
-![Net2 Diagram](./digram/network-3.png)
+![Net2 Diagram](./digram/network-2.png)
 
 3. To confirm ip is allocated or not run below commands and verify 
 ~~~
