@@ -302,3 +302,5 @@ root@bastion.ocplabs.com   : ok=48   changed=19   unreachable=0    failed=0    s
 INFO[2025-07-10 02:37:34] Quay installed successfully, config data is stored in ~/quay-install
 INFO[2025-07-10 02:37:34] Quay is available at https://registry.kubelabs.com:8443 with credentials (openshift, redhat123)
 ~~~
+On laptop browser check using any webbrowser , on windows etc file make entry for registry.kubelabs.com with ip of vm 
+![Net7 Diagram](./digram/registry-1.png)
