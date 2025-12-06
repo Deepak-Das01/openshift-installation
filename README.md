@@ -304,3 +304,6 @@ INFO[2025-07-10 02:37:34] Quay is available at https://registry.kubelabs.com:844
 ~~~
 On laptop browser check using any webbrowser , on windows etc file make entry for registry.kubelabs.com with ip of vm 
 ![Net7 Diagram](./digram/registry-1.png)
+
+### Step 14 : Create organisation ocp4 & Registry openshift4
+![Net8 Diagram](./digram/registry-2.png)
