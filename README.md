@@ -172,7 +172,7 @@ systemctl start named
 systemctl status named
 ~~~
 ![Net4 Diagram](./digram/dns-service.png)
-## Confirm every thing is working fine 
+### Confirm every thing is working fine 
 ~~~
 [root@bastion openshift-installation]# dig -x 10.9.8.1
 
@@ -198,4 +198,51 @@ systemctl status named
 ;; SERVER: 127.0.0.1#53(127.0.0.1)
 ;; WHEN: Wed Dec 03 11:41:33 IST 2025
 ;; MSG SIZE  rcvd: 191
+~~~
+
+### Step 5 : Setup dhcp
+~~~
+$ dnf install dhcp-server -y
+[root@bastion openshift-installation]# cp dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf
+systemctl enable dhcpd
+systemctl start dhcpd
+systemctl status dhcpd
+~~~
+![Net5 Diagram](./digram/dhcp-service.png)
+
+### Step 5 : Install & configure Apache Web Server
+~~~
+$ dnf install httpd -y
+$ sed -i 's/Listen 80/Listen 0.0.0.0:8080/' /etc/httpd/conf/httpd.conf
+systemctl enable httpd
+systemctl start httpd
+systemctl status httpd
+~~~
+### to check the service is working fine on port 8080
+~~~
+$ curl localhost:8080
+~~~
+### Step 6 : Install & configure HAProxy Load Balancer
+~~~
+$ dnf install haproxy -y
+[root@bastion openshift-installation]# cp haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
+setsebool -P haproxy_connect_any 1 # SELinux name_bind access
+systemctl enable haproxy
+systemctl start haproxy
+systemctl status haproxy
+~~~
+![Net6 Diagram](./digram/haproxy-service.png)
+
+### Step 7 : Setup and enable nfs for internal image registry
+~~~
+[root@bastion openshift-installation]# mkdir -p /root/nfs-registry
+[root@bastion openshift-installation]# chown -R nobody:nobody /root/nfs-registry
+[root@bastion openshift-installation]# chmod -R 777 /root/nfs-registry
+[root@bastion openshift-installation]# echo "/root/nfs-registry  10.9.8.0/24(rw,sync,root_squash,no_subtree_check,no_wdelay)" > /etc
+/exports
+[root@bastion openshift-installation]# exportfs -rv
+exporting 10.9.8.0/24:/root/nfs-registry
+[root@bastion openshift-installation]# systemctl enable nfs-server rpcbind
+systemctl start nfs-server rpcbind nfs-mountd
+Created symlink /etc/systemd/system/multi-user.target.wants/nfs-server.service → /usr/lib/systemd/system/nfs-server.service.
 ~~~
