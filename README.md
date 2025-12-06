@@ -134,5 +134,21 @@ $ cd cli-tools/
 $ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/openshift-client-linux-4.18.X.tar.gz 
 $ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/openshift-install-linux.tar.gz 
 $ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/oc-mirror.rhel9.tar.gz
-  
 ~~~
+Step 2  : Network Configuration on Virtual machine host use the Networ 1 ( Bridge ) in my case its ens194 on the host machine and change its ipv4 address to the 10.9.8.1/24 , dns 127.0.0.1 , Search domains : kubelabs.com 
+1. edit using below command and choose you bridge network
+~~~
+nmtui-edit con ens192
+~~~
+![Net1 Diagram](./digram/network-1.png)
+
+2. Change the ipv4 to maunal and edit the details as per the below snip after that click on save 
+![Net2 Diagram](./digram/network-3.png)
+
+3. To confirm ip is allocated or not run below commands and verify 
+~~~
+$ nmcli connection down ens192
+$ nmcli connection up ens192
+$ ip a
+~~~
+![Net3 Diagram](./digram/network-3.png)
