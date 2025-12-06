@@ -125,8 +125,14 @@ Hostnames:
 
 ---
 
-## 📌 Notes
+## Part A : Bastion Host Configuration 
 
-- This deployment is intended for **offline / air-gapped lab environments**.
-- All required images, ISOs, and operator catalogs are mirrored locally.
-- Only the Bastion Node needs temporary internet access.
+** Step1 : Copy the Git repository to the Linux host, download the required CLI tool packages, extract them using tar xzvf <tarball.tar.gz>, and move the binaries to /usr/bin/ for system-wide access. **
+~~~
+$ git clone https://github.com/Deepak-Das01/openshift-installation.git
+$ cd cli-tools/
+$ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/openshift-client-linux-4.18.X.tar.gz 
+$ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/openshift-install-linux.tar.gz 
+$ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.18.X/oc-mirror.rhel9.tar.gz
+  
+~~~
