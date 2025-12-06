@@ -172,4 +172,30 @@ systemctl start named
 systemctl status named
 ~~~
 ![Net4 Diagram](./digram/dns-service.png)
+## Confirm every thing is working fine 
+~~~
+[root@bastion openshift-installation]# dig -x 10.9.8.1
 
+; <<>> DiG 9.16.23-RH <<>> -x 10.9.8.1
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53699
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 9650ac3ba550bb8c01000000692fd49550c7e925950da5b5 (good)
+;; QUESTION SECTION:
+;1.8.9.10.in-addr.arpa.         IN      PTR
+
+;; ANSWER SECTION:
+1.8.9.10.in-addr.arpa.  604800  IN      PTR     api.ocp.kubelabs.com.
+1.8.9.10.in-addr.arpa.  604800  IN      PTR     api-int.ocp.kubelabs.com.
+1.8.9.10.in-addr.arpa.  604800  IN      PTR     bastion.kubelabs.com.
+1.8.9.10.in-addr.arpa.  604800  IN      PTR     registry.kubelabs.com.
+
+;; Query time: 1 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Wed Dec 03 11:41:33 IST 2025
+;; MSG SIZE  rcvd: 191
+~~~
