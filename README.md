@@ -210,7 +210,7 @@ systemctl status dhcpd
 ~~~
 ![Net5 Diagram](./digram/dhcp-service.png)
 
-### Step 5 : Install & configure Apache Web Server
+### Step 6 : Install & configure Apache Web Server
 ~~~
 $ dnf install httpd -y
 $ sed -i 's/Listen 80/Listen 0.0.0.0:8080/' /etc/httpd/conf/httpd.conf
@@ -222,7 +222,7 @@ systemctl status httpd
 ~~~
 $ curl localhost:8080
 ~~~
-### Step 6 : Install & configure HAProxy Load Balancer
+### Step 7 : Install & configure HAProxy Load Balancer
 ~~~
 $ dnf install haproxy -y
 [root@bastion openshift-installation]# cp haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
@@ -233,7 +233,7 @@ systemctl status haproxy
 ~~~
 ![Net6 Diagram](./digram/haproxy-service.png)
 
-### Step 7 : Setup and enable nfs for internal image registry
+### Step 8 : Setup and enable nfs for internal image registry
 ~~~
 [root@bastion openshift-installation]# mkdir -p /root/nfs-registry
 [root@bastion openshift-installation]# chown -R nobody:nobody /root/nfs-registry
@@ -245,3 +245,29 @@ exporting 10.9.8.0/24:/root/nfs-registry
 systemctl start nfs-server rpcbind nfs-mountd
 Created symlink /etc/systemd/system/multi-user.target.wants/nfs-server.service → /usr/lib/systemd/system/nfs-server.service.
 ~~~
+---
+## Part B : Setup Mirror Registry in bastion host
+### Step 9 : Create hosts entry in /etc/hosts file ( If DNS Already done then skip this step )
+~~~
+[root@bastion ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+ 
+192.168.29.83   bastion.kubelabs.com
+~~~
+### Step 10 : Export all the variables required for mirror the ocp images , Pull secret need to generate from the Redhat Hybrid cloud console 
+~~~
+export OCP_RELEASE=4.18.24
+export ARCHITECTURE=x86_64
+export PULL_SECRET_PATH=/root/pullsec/pull-secret.txt
+export SAVE_DIR=/root/images
+~~~
+Ensure the directory exists $ variables are working 
+~~~
+mkdir -p $SAVE_DIR
+~~~
+### Step 11 : Run Below Command To Download The Image Files OCP Platform 4.18
+~~~
+oc adm release mirror -a ${PULL_SECRET_PATH}   --from=quay.io/openshift-release-dev/ocp-release:${OCP_RELEASE}-${ARCHITECTURE}   --to-dir=${SAVE_DIR}
+~~~
+
