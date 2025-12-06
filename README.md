@@ -158,3 +158,16 @@ $ ip a
 [root@bastion openshift-installation]# systemctl stop firewalld
 [root@bastion openshift-installation]# systemctl disable firewalld
 ~~~
+
+### Step 4 : Set up dns ( Named )
+~~~
+$ dnf install bind bind-utils -y
+
+[root@bastion openshift-installation]# ls
+cli-tools  dhcp  dns  haproxy  install-config.yaml  README.md
+[root@bastion openshift-installation]# cp -r dns/named.conf /etc/named.conf
+[root@bastion openshift-installation]# cp -R dns/zones/ /etc/named/
+systemctl enable named
+systemctl start named
+systemctl status named
+~~~
