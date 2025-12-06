@@ -329,8 +329,22 @@ rootCA.key  rootCA.pem  rootCA.srl
 [root@bastion quay-rootCA]# cp rootCA.pem /etc/pki/ca-trust/source/anchors/
 [root@bastion quay-rootCA]# update-ca-trust
 [root@bastion quay-rootCA]# cd
-[root@bastion ~]# podman login bastion.ocplabs.com:8443
+[root@bastion ~]# podman login registry.kubelabs.com:8443
 Username: openshift
 Password:
 Login Succeeded!
 ~~~
+### Step 16 : Upload all the Downloaded images to Quay registry 
+~~~
+[root@bastion ~]# oc image mirror --from-dir=/ocp-image 'file://openshift/release:4.16.5-x86_64*' registry.kubelabs.com:8443/ocp4/openshift4
+~~~
+After successful it shows 
+~~~
+sha256:897f93d7062d3adcebaffdb4e11f7873d87fbb3a9ade8cc613e3a3c3926f5ccb bastion.ocplabs.com:8443/ocp4/openshift4:4.16.5-x86_64-multus-cni-microshift
+sha256:3a74d91fcace9d61aafcd1d29d9360d42994a5f5b1805b84282d68e08d7794a5 bastion.ocplabs.com:8443/ocp4/openshift4:4.16.5-x86_64-container-networking-plugins
+sha256:9dd29c253df3df0156df4c150637d539da887c7273d7bb119dc277303eab7c1d bastion.ocplabs.com:8443/ocp4/openshift4:4.16.5-x86_64-cluster-network-operator
+sha256:76dbb8f78e18ff8a9089ecf4b164a750a9ec7e4d17e3d4e41c06f9479f0b3a63 bastion.ocplabs.com:8443/ocp4/openshift4:4.16.5-x86_64-baremetal-operator
+info: Mirroring completed in 17m26.17s (18.59MB/s)
+~~~
+You Can check same in GUI Also 
+![Net9 Diagram](./digram/registry-3.png)
