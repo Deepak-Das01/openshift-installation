@@ -171,3 +171,5 @@ systemctl enable named
 systemctl start named
 systemctl status named
 ~~~
+![Net4 Diagram](./digram/dns-service.png)
+
